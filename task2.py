@@ -29,20 +29,25 @@ def from_csv(func: Callable):
 
 
 def json_log(func: Callable):
+    try:
+        with open(f'{func.__name__}.json', 'r') as data:
+            result_list = json.load(data)
+    except FileNotFoundError:
+        result_list = []
+
     @wraps(func)
     def wrapper(*args, **kwargs):
-        result_list = []
         result = func(*args, **kwargs)
         result_list.append({'args': args, **kwargs,
                             'result': result})
-        with open(f'{func.__name__}.json', 'a') as data:
+        with open(f'{func.__name__}.json', 'w') as data:
             json.dump(result_list, data, indent=4)
         return result
     return wrapper
 
 
-# @json_log
 @from_csv
+@json_log
 def square_root(a, b, c):
     if a == 0:
         return None
