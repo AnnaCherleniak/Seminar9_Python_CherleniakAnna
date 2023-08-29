@@ -27,16 +27,16 @@ def json_cache(func: Callable):
         result_list = []
 
     def wrapper(*args, **kwargs):
-        for el in result_list:
-            if el['args'] == list(args):
-                return el['result']
-            else:
-                result = func(*args, **kwargs)
-                result_list.append({'args': args, **kwargs,
-                                    'result': result})
-                with open(f'{func.__name__}.json', 'w') as data:
-                    json.dump(result_list, data, indent=4)
-                return result
+        if result_list:
+            for el in result_list:
+                if el['args'] == list(args):
+                    return el['result']
+        result = func(*args, **kwargs)
+        result_list.append({'args': args, **kwargs,
+                            'result': result})
+        with open(f'{func.__name__}.json', 'w') as data:
+            json.dump(result_list, data, indent=4)
+        return result
     return wrapper
 
 
@@ -47,29 +47,3 @@ def sum_args(*args, **kwargs):
 
 if __name__ == '__main__':
     print(sum_args(10, 2, 3, 4))
-
-# # @json_cache
-# def min_args(*args, **kwargs):
-#     return min(args)
-
-
-# # @json_cache
-# def square_root(*args, **kwargs):
-#     a, b, c = args
-#     d = b ** 2 - 4 * a * c
-#     if d > 0:
-#         res1 = (-b + d ** 0.5) / (2 * a)
-#         res2 = (-b - d ** 0.5) / (2 * a)
-#         return res1, res2
-#     elif d == 0:
-#         res1 = -b / (2 * a)
-#         return res1
-#     else:
-#         res1 = complex((-b + d ** 0.5) / (2 * a))
-#         res2 = complex((-b - d ** 0.5) / (2 * a))
-#         return res1, res2
-
-
-
-    # print(square_root(1, 5, -8))
-    # print(min_args(1, 547, -145, 0, 785))
