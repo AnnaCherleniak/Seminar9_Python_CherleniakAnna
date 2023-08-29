@@ -46,4 +46,30 @@ def sum_args(*args, **kwargs):
 
 
 if __name__ == '__main__':
-    print(sum_args(1, 2, 3, 4))
+    print(sum_args(10, 2, 3, 4))
+
+# # @json_cache
+# def min_args(*args, **kwargs):
+#     return min(args)
+
+
+# # @json_cache
+# def square_root(*args, **kwargs):
+#     a, b, c = args
+#     d = b ** 2 - 4 * a * c
+#     if d > 0:
+#         res1 = (-b + d ** 0.5) / (2 * a)
+#         res2 = (-b - d ** 0.5) / (2 * a)
+#         return res1, res2
+#     elif d == 0:
+#         res1 = -b / (2 * a)
+#         return res1
+#     else:
+#         res1 = complex((-b + d ** 0.5) / (2 * a))
+#         res2 = complex((-b - d ** 0.5) / (2 * a))
+#         return res1, res2
+
+
+
+    # print(square_root(1, 5, -8))
+    # print(min_args(1, 547, -145, 0, 785))
