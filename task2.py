@@ -22,7 +22,6 @@ def from_csv(func: Callable):
             csv_file = csv.reader(f)
             for line in csv_file:
                 a, b, c = map(int, line)
-                print(func(a, b, c))
                 result.append(func(a, b, c))
         return result
     return wrapper
@@ -61,9 +60,7 @@ def square_root(a, b, c):
             res1 = -b / (2 * a)
             return res1
         else:
-            res1 = complex((-b + d ** 0.5) / (2 * a))
-            res2 = complex((-b - d ** 0.5) / (2 * a))
-            return res1, res2
+            return 'roots complex'
 
 
 def generate_numbers_csv(name_file, min_number, max_number, count_numbers,
@@ -78,5 +75,5 @@ def generate_numbers_csv(name_file, min_number, max_number, count_numbers,
 
 
 if __name__ == '__main__':
-    print(square_root('numbers.csv'))
-    generate_numbers_csv('numbers.csv', -10, 10, 3, 10)
+    generate_numbers_csv('numbers.csv', -10, 10, 3, 100)
+    square_root('numbers.csv')
